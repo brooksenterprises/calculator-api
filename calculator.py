@@ -6,7 +6,9 @@ It is not intended to provide investment advice, and no investment recommendatio
 The developers are not financial advisors and accept no responsibility for any financial decisions or losses resulting from the use of this software. 
 Always consult a professional financial advisor before making any investment decisions.
 """
-from django.template.defaultfilters import title
+def title(text: str) -> str:
+    return text.title()
+
 
 """" import FreeSimpleGUI as sg """
 import yfinance as yf
@@ -248,3 +250,4 @@ def main(ticker: str):
         return main_gui(ticker)  # formats into PASS/FAIL with colors
     except Exception as e:
         return {"error": str(e)}
+
