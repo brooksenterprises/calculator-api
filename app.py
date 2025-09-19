@@ -12,18 +12,11 @@ def home():
 @app.get("/calc")
 def run_calc(ticker: str):
     try:
-        result = calculator.main(ticker)  # if you have calculator.main()
-        return {"success": True, "ticker": ticker, "result": result}
+        # Prefer calculator.main() if it returns structured JSON
+        result = calculator.main(ticker)
+        return JSONResponse(content={"ticker": ticker, "result": result})
     except Exception as e:
-        return {"success": False, "error": str(e)}
-
-@app.get("/recommend/{symbol}")
-def recommend(symbol: str):
-    try:
-        result = calculator.compute_recommendation(symbol)  # no await
-        return JSONResponse(content=result)
-    except Exception as e:
-        return {"error": str(e)}
+        return JSONResponse(content={"error": str(e)}, status_code=500)
 
 # For local testing
 if __name__ == "__main__":
