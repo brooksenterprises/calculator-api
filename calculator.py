@@ -241,12 +241,10 @@ def main_gui(stock="APPL"):
         }
 
 def main(ticker: str):
-    # put your existing logic here
-    # instead of printing, return a dictionary
-    return {
-        "title": {"text": "Recommended", "text_color": "#006600"},
-        "avg_volume": {"state": "PASS"},
-        "iv30_rv30": {"state": "PASS"},
-        "ts_slope_0_45": {"state": "FAIL"},
-        "expected_move": "2.34%"
-    }
+    try:
+        result = compute_recommendation(ticker)
+        if isinstance(result, str):  # error string
+            return {"error": result}
+        return main_gui(ticker)  # formats into PASS/FAIL with colors
+    except Exception as e:
+        return {"error": str(e)}
