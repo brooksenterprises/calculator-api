@@ -6,7 +6,7 @@ import calculator
 app = FastAPI()
 
 # CORS fix
-origins = ["*"]  # you can replace "*" with your Webflow domain later
+origins = ["https://earnings-c38b45.webflow.io"]  # you can replace "*" with your Webflow domain later
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -34,3 +34,4 @@ async def recommend(symbol: str):
         return JSONResponse(content=result)
     except Exception as e:
         return {"error": str(e)}
+
